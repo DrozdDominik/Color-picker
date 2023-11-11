@@ -65,6 +65,44 @@ export class ColorPicker extends LitElement {
       height: 100px;
       margin: 50px 10px;
     }
+    .inputs {
+      margin: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rgb-inputs {
+      margin-bottom: 10px
+    }
+
+    .inputs input {
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .inputs input:focus { 
+      outline: none;
+    }
+
+    .red:focus {
+      background-color: #ff6961;
+    }
+
+    .green:focus {
+      background-color: #77dd77;
+    }
+
+    .blue:focus {
+      background-color: #aec6cf;
+    }
+
+    .hex-input {
+      width: 80px
+    }
   `;
 
   @property({ type: Number })
@@ -78,6 +116,15 @@ export class ColorPicker extends LitElement {
 
   @property({ attribute: false })
   selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value })
+
+  @query('.red')
+  _red?: HTMLInputElement
+
+  @query('.green')
+  _green?: HTMLInputElement
+
+  @query('.blue')
+  _blue?: HTMLInputElement
 
   render() {
     return html`
@@ -98,6 +145,28 @@ export class ColorPicker extends LitElement {
               class="color-preview"
               style="background-color: ${this.selectedColor.toRgbString()};"
             >
+          </div>
+          <div class="inputs">
+            <div class="rgb-inputs">
+              <p><b>RGB values</b></p>
+              <label>
+                Red
+                <input class="red" type="number" .value="${this.selectedColor.toRgb().r.toString()}" min="0" max="255" @input="${this.handleInput}">
+              </label>
+              <label>
+                Green
+                <input class="green" type="number" .value="${this.selectedColor.toRgb().g.toString()}" min="0" max="255" @input="${this.handleInput}">
+              </label>
+              <label>
+                Blue
+                <input class="blue" type="number" .value="${this.selectedColor.toRgb().b.toString()}" min="0" max="255" @input="${this.handleInput}">
+              </label>
+            </div>
+            <div>
+              <label><b>Hex value</b>
+                <input class="hex-input" type="text" .value="${this.selectedColor.toHex()}" readonly>
+              </label>
+            </div>
           </div>
         </div>
         <div class="slider">
@@ -125,5 +194,14 @@ export class ColorPicker extends LitElement {
   handleHueChange(event: Event) {
     this.hue = parseInt((event.target as HTMLInputElement).value);
     this.selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value });
+  }
+
+  handleInput() {
+    const newColor = colord({ r: Number(this._red?.value), g: Number(this._green?.value), b: Number(this._blue?.value) });
+    this.selectedColor = newColor;
+    const newColorHsv = newColor.toHsv();
+    this.hue = newColorHsv.h;
+    this.saturation = newColorHsv.s;
+    this.value = newColorHsv.v;
   }
 }
