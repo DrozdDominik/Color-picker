@@ -31,6 +31,35 @@ export class ColorPicker extends LitElement {
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
+    .slider {
+      display: block;
+      width: 60%;
+      height: 30px;
+      background: linear-gradient(
+        to right,
+        red,
+        yellow,
+        lime,
+        aqua,
+        blue,
+        magenta,
+        red
+      );
+    }
+    input[type='range'] {
+      width: 100%;
+      height: 30px;
+      background: transparent;
+      -webkit-appearance: none;
+    }
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 30px;
+      background: white;
+      cursor: pointer;
+    }
   `;
 
   @property({ type: Number })
@@ -61,6 +90,15 @@ export class ColorPicker extends LitElement {
               </div>
           </div>
         </div>
+        <div class="slider">
+          <input
+            type="range"
+            min="0"
+            max="360"
+            .value="${this.hue.toString()}"
+            @input="${this.handleHueChange}"
+          />
+        </div>
       </div>
     `;
   }
@@ -69,6 +107,11 @@ export class ColorPicker extends LitElement {
     const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
     this.saturation = ((event.clientX - rect.left) / rect.width) * 100;
     this.value = 100 - ((event.clientY - rect.top) / rect.height) * 100;
+    this.selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value });
+  }
+
+  handleHueChange(event: Event) {
+    this.hue = parseInt((event.target as HTMLInputElement).value);
     this.selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value });
   }
 }
