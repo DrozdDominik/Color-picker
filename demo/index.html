@@ -15,12 +15,9 @@
     import { html, render } from 'lit';
     import '../dist/src/color-picker.js';
 
-    const header = 'Hello owc World!';
     render(
       html`
-        <color-picker .header=${header}>
-          some light-dom
-        </color-picker>
+        <color-picker></color-picker>
       `,
       document.querySelector('#demo')
     );
