@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { html, render } from 'lit';
+    import '../dist/src/color-picker.js';
+
+    const header = 'Hello owc World!';
+    render(
+      html`
+        <color-picker .header=${header}>
+          some light-dom
+        </color-picker>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>
