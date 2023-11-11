@@ -66,6 +66,15 @@ describe('ColorPicker', () => {
     expect(el.hue).to.equal(newHueValue);
   });
 
+  it('should color-preview div background color value equals selectedColor', async () => {
+    const el = await fixture<ColorPicker>(html`<color-picker></color-picker>`);
+
+    const colorPreviewDiv = el.shadowRoot!.querySelector('.color-preview');
+    const colorPreviewBackgroundColor = window.getComputedStyle(colorPreviewDiv!).backgroundColor
+
+    expect(el.selectedColor.toRgbString()).to.equal(colorPreviewBackgroundColor)
+  });
+
   it('passes the a11y audit', async () => {
     const el = await fixture<ColorPicker>(html`<color-picker></color-picker>`);
 
