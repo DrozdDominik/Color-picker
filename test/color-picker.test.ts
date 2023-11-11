@@ -5,7 +5,7 @@ import '../src/color-picker.js';
 import { Colord, colord } from 'colord';
 
 describe('ColorPicker', () => {
-  const hue = 1;
+  const hue = 0;
   const saturation = 100;
   const value = 100;
   const selectedColorValue = colord({ h: hue, s: saturation, v: value }).toRgbString();

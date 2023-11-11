@@ -106,7 +106,7 @@ export class ColorPicker extends LitElement {
   `;
 
   @property({ type: Number })
-  hue = 1;
+  hue = 0;
 
   @property({ type: Number })
   saturation = 100;
