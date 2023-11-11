@@ -60,6 +60,11 @@ export class ColorPicker extends LitElement {
       background: white;
       cursor: pointer;
     }
+    .color-preview {
+      width: 100px;
+      height: 100px;
+      margin: 50px 10px;
+    }
   `;
 
   @property({ type: Number })
@@ -88,6 +93,11 @@ export class ColorPicker extends LitElement {
                   style="left: ${this.saturation}%; top: ${100 - this.value}%"
                 >
               </div>
+          </div>
+          <div
+              class="color-preview"
+              style="background-color: ${this.selectedColor.toRgbString()};"
+            >
           </div>
         </div>
         <div class="slider">
