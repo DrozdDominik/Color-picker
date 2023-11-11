@@ -91,13 +91,15 @@ export class ColorPicker extends LitElement {
           </div>
         </div>
         <div class="slider">
-          <input
-            type="range"
-            min="0"
-            max="360"
-            .value="${this.hue.toString()}"
-            @input="${this.handleHueChange}"
-          />
+          <label aria-label="hue slider">
+            <input
+              type="range"
+              min="0"
+              max="360"
+              .value="${this.hue.toString()}"
+              @input="${this.handleHueChange}"
+            />
+          </label>
         </div>
       </div>
     `;
