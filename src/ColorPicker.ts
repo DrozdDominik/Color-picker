@@ -1,27 +1,74 @@
 import { html, css, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
+import { colord } from "colord";
 
 export class ColorPicker extends LitElement {
   static styles = css`
-    :host {
-      display: block;
-      padding: 25px;
-      color: var(--color-picker-text-color, #000);
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .main {
+      margin-bottom:20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .gradient-square {
+      margin: 0 10px;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      cursor: crosshair;
+    }
+    .selector {
+      position: absolute;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
   `;
 
-  @property({ type: String }) header = 'Hey there';
+  @property({ type: Number })
+  hue = 1;
 
-  @property({ type: Number }) counter = 5;
+  @property({ type: Number })
+  saturation = 100;
 
-  __increment() {
-    this.counter += 1;
-  }
+  @property({ type: Number })
+  value = 100;
+
+  @property({ attribute: false })
+  selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value })
 
   render() {
     return html`
-      <h2>${this.header} Nr. ${this.counter}!</h2>
-      <button @click=${this.__increment}>increment</button>
+      <div class="container">
+        <div class="main">
+          <div class="gradient-square"
+            style="background: 
+              linear-gradient(to top, black, rgba(0, 0, 0, 0)),
+              linear-gradient(to right, white, ${colord({ h: this.hue, s: 100, v: 100 }).toRgbString()})"
+            @click="${this.handleClick}">
+              <div
+                  class="selector"
+                  style="left: ${this.saturation}%; top: ${100 - this.value}%"
+                >
+              </div>
+          </div>
+        </div>
+      </div>
     `;
+  }
+
+  handleClick(event: MouseEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    this.saturation = ((event.clientX - rect.left) / rect.width) * 100;
+    this.value = 100 - ((event.clientY - rect.top) / rect.height) * 100;
+    this.selectedColor = colord({ h: this.hue, s: this.saturation, v: this.value });
   }
 }
