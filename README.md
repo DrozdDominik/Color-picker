@@ -18,6 +18,19 @@ npm i color-picker
 <color-picker></color-picker>
 ```
 
+### Optional styling
+
+Optional CSS custom property ```--picker-width``` \<color-picker> width
+Default \<color-picker> width is 750px 
+
+```html
+  <style>
+    color-picker {
+      --picker-width: 750px;
+    }
+  </style>
+```
+
 ## Linting and formatting
 
 To scan the project for linting and formatting errors, run
