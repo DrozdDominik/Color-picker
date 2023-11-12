@@ -20,15 +20,16 @@ npm i color-picker
 
 ### Optional styling
 
-Optional CSS custom property ```--picker-width``` \<color-picker> width
-Default \<color-picker> width is 750px 
+Optional CSS custom property `--picker-width` to set custom width `<color-picker>`
+
+`<color-picker>` default width is `750px`
 
 ```html
-  <style>
-    color-picker {
-      --picker-width: 750px;
-    }
-  </style>
+<style>
+  color-picker {
+    --picker-width: 750px;
+  }
+</style>
 ```
 
 ## Linting and formatting
@@ -58,7 +59,6 @@ To run the tests in interactive watch mode run:
 ```bash
 npm run test:watch
 ```
-
 
 ## Tooling configs
 
