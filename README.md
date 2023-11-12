@@ -18,6 +18,20 @@ npm i color-picker
 <color-picker></color-picker>
 ```
 
+### Optional styling
+
+Optional CSS custom property `--picker-width` to set custom width `<color-picker>`
+
+`<color-picker>` default width is `750px`
+
+```html
+<style>
+  color-picker {
+    --picker-width: 750px;
+  }
+</style>
+```
+
 ## Linting and formatting
 
 To scan the project for linting and formatting errors, run
@@ -45,7 +59,6 @@ To run the tests in interactive watch mode run:
 ```bash
 npm run test:watch
 ```
-
 
 ## Tooling configs
 
